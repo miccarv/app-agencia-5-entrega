@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html
+  lang="pt-br"
+  xmlns:mso="urn:schemas-microsoft-com:office:office"
+  xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta charset="ISO-8859-1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Home - Cadastro</title>
+  </head>
+
+  <body class="home-bg">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand ml-5" href="/">Home</a>
+        <ul class="navbar-nav mr-auto ml-5 mt-2 mt-lg-0">
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="/destino">Destinos</a>
+          </li>
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="/promocoes">Promoções</a>
+          </li>
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="/contato">Contato</a>
+          </li>
+          <li class="nav-item">
+            <a
+              sec:authorize="isAuthenticated()"
+              class="nav-link"
+              th:href="@{/destinations}"
+              >Viagens Cadastradas</a
+            >
+          </li>
+        </ul>
+        <a
+          sec:authorize="isAuthenticated()"
+          class="btn btn-secondary ml-2 px-4"
+          th:href="@{/logout}"
+          >Sair</a
+        >
+      </div>
+    </nav>
+
+    <div
+      class="container-fluid text-white"
+      style="padding: 56px 0 56px 0; align-items: stretch"
+    >
+      <div class="col-lg-6 bg-blue">
+        <h1>Faça seu cadastro:</h1>
+        <form
+          th:action="@{/registration}"
+          method="post"
+          th:object="${user}"
+          class="row g-3"
+        >
+          <div class="col-12">
+            <label for="name" class="form-label">Nome Completo</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              aria-label="name"
+              th:field="*{name}"
+              required
+              autofocus="autofocus"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              th:field="*{email}"
+              required
+              autofocus="autofocus"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="password" class="form-label">Senha</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              th:field="*{password}"
+              required
+              autofocus="autofocus"
+            />
+          </div>
+          <div class="col-12">
+            <label for="address" class="form-label"
+              >Endereço (Rua, Número e Cidade)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              th:field="*{address}"
+              required
+              autofocus="autofocus"
+            />
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary my-4">
+              Cadastrar
+            </button>
+            <button type="reset" class="btn btn-secondary my-4">
+              Limpar formulário
+            </button>
+          </div>
+        </form>
+        <!-- success message -->
+        <div th:if="${param.success}">
+          <div class="alert alert-info">
+            Cadastro efetuado! Faça o <a th:href="@{/login}">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start fixed-bottom">
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2022 Copyright:
+        <a class="text-dark" href="/">Bootstrap Viagens</a>
+      </div>
+    </footer>
+  </body>
+</html>
